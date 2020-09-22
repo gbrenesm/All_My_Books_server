@@ -1,5 +1,4 @@
 const express = require("express")
-const { route } = require("./index.routes")
 const router = express.Router()
 
 const { signupProcess, 

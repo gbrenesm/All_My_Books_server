@@ -10,7 +10,7 @@ const bookSchema = new Schema(
         publisher: [String],
         published: Date,
         edition: String,
-        ISBN: Number,
+        ISBN: String,
         publishPlace: String,
         pages: Number,
         format: {

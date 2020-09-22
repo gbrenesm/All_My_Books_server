@@ -1,7 +1,8 @@
 const Book = require("../models/Book")
+const User = require("../models/User")
 
-//C
-exports.newBook = async (req, res) => {
+////C
+exports.newBookProcess = async (req, res) => {
   const { title, author, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
   const book = await Book.create({
     title,
@@ -17,11 +18,42 @@ exports.newBook = async (req, res) => {
     cover,
     creator: req.user.id
   })
-  res.status(2001).json({ book })
+  await User.findByIdAndUpdate(req.user.id, {$push: {books: book._id}})
+  res.status(201).json({ book })
 }
 
-//R
+////R
 
-//U
+exports.seeUserBooks = async (req, res) => {
+  const user = await User.findById(req.user.id).populate("books")
+  res.status(201).json({ user })
+}
 
-//D
+////U
+
+exports.upadateBookProcess = async (req, res) => {
+  const { title, author, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
+  const book = await Book.findByIdAndUpdate(req.params.bookId, {
+    title,
+    author,
+    publisher,
+    published,
+    edition,
+    ISBN,
+    publishPlace,
+    pages,
+    format,
+    description,
+    cover,
+  }, { new: true })
+  res.status(200).json({ book })
+}
+
+////D
+
+exports.deleteBookProcess = async (req, res) => {
+  await Book.findByIdAndDelete(req.params.bookId)
+  res.status(200).json({ message: "Libro eliminado"})
+  await User.findByIdAndUpdate(req.user.id, {$pull: {books: req.params.bookId}})
+
+}

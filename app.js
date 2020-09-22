@@ -11,8 +11,9 @@ const path         = require('path');
 
 mongoose
   .connect(process.env.DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useNewUrlParser: true, 
+    useCreateIndex: true, 
+    useUnifiedTopology: true, 
     useFindAndModify: false})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
@@ -43,9 +44,7 @@ app.use(require('node-sass-middleware')({
 }));
       
 
-app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 
@@ -60,5 +59,7 @@ app.use('/', index);
 const auth = require("./routes/auth.routes")
 app.use("/auth", auth)
 
+const book = require("./routes/book.routes")
+app.use("/api", book)
 
 module.exports = app;
