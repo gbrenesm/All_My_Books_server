@@ -65,4 +65,7 @@ app.use("/api", book)
 const note = require("./routes/note.routes")
 app.use("/api", note)
 
+const quote = require("./routes/quotes.routes")
+app.use("/api", quote)
+
 module.exports = app;

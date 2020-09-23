@@ -30,7 +30,6 @@ exports.updateNoteProcess = async (req, res) => {
 }
 
 ////D
-
 exports.deleteNoteProcess = async (req, res) => {
   await Note.findByIdAndDelete(req.params.noteId)
   res.status(200).json({ message: "Nota eliminada" })

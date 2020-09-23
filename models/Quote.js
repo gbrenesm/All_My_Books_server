@@ -10,9 +10,9 @@ const quoteSchema = new Schema (
             type: Schema.Types.ObjectId,
             ref: "Book"
         },
-        quote: String,
+        description: String,
         pages: [Number],
-        notes: [String],
+        note: String,
         tags: [String]
     },
     {
