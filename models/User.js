@@ -22,6 +22,10 @@ const userSchema = new Schema(
         books: [{
             type: Schema.Types.ObjectId,
             ref: "Book"
+        }],
+        shelfs: [{
+            type: Schema.Types.ObjectId,
+            ref: "Shelf"
         }]
     },
     {
