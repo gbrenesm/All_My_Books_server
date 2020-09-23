@@ -7,6 +7,7 @@ const favicon      = require('serve-favicon');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const cors         = require("cors")
 
 
 mongoose
@@ -33,6 +34,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 require("./config/session")(app)
+app.use(cors({
+  origin: ["http://localhost:3001"],
+  credentials: true
+}))
 
 
 // Express View engine setup

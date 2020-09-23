@@ -47,6 +47,10 @@ exports.loginProcess = (req, res, next) => {
     })(req, res, next)
 }
 
+///////////////// Current user /////////////////
+exports.currentUser = (req, res) => {
+    res.status(200).json({ user: req.user})
+}
 
 ///////////////// Logout /////////////////
 
