@@ -12,7 +12,8 @@ const noteSchema = new Schema(
         },
         tags: [String],
         chapter: String,
-        pages: [Number]
+        pages: [Number],
+        description: String
     },
     {
         timestamps: true

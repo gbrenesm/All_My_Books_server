@@ -62,4 +62,7 @@ app.use("/auth", auth)
 const book = require("./routes/book.routes")
 app.use("/api", book)
 
+const note = require("./routes/note.routes")
+app.use("/api", note)
+
 module.exports = app;

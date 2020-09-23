@@ -24,9 +24,14 @@ exports.newBookProcess = async (req, res) => {
 
 ////R
 
+exports.seeDetailBook = async (req, res) => {
+  const book = await Book.findById(req.params.bookId)
+  res.status(200).json({ book })
+}
+
 exports.seeUserBooks = async (req, res) => {
   const user = await User.findById(req.user.id).populate("books")
-  res.status(201).json({ user })
+  res.status(200).json({ user })
 }
 
 ////U
@@ -46,7 +51,7 @@ exports.upadateBookProcess = async (req, res) => {
     description,
     cover,
   }, { new: true })
-  res.status(200).json({ book })
+  res.status(202).json({ book })
 }
 
 ////D

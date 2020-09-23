@@ -5,13 +5,15 @@ const { catchErrors } = require("../middlewares")
 const { newBookProcess, 
         upadateBookProcess, 
         deleteBookProcess,
-        seeUserBooks} = require("../controllers/books")
+        seeUserBooks,
+        seeDetailBook} = require("../controllers/books")
 
 ////C
 router.post("/newbook", catchErrors(newBookProcess))
 
 ////R
 router.get("/userbooks", catchErrors(seeUserBooks))
+router.get("/detialbook/:bookId", catchErrors(seeDetailBook))
 
 ////U
 router.put("/updatebook/:bookId", catchErrors(upadateBookProcess))
