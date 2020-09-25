@@ -9,7 +9,7 @@ const passport = require("../config/passport")
 exports.signupProcess = async (req, res) => {
     const { username, email, password } = req.body
     if (username === "" || email === "" || password === "")
-        return res.status(401).json({message: "Por favor llena todos los campos"})
+        return res.status(401).json({message: "Por favor, llena todos los campos"})
     const existingUser = await User.findOne({ email })
     if (existingUser)
         return res.status(401).json({message: "El email ya está registrado"})

@@ -13,7 +13,7 @@ router.post("/newbook", catchErrors(newBookProcess))
 
 ////R
 router.get("/userbooks", catchErrors(seeUserBooks))
-router.get("/detialbook/:bookId", catchErrors(seeDetailBook))
+router.get("/detailbook/:bookId", catchErrors(seeDetailBook))
 
 ////U
 router.put("/updatebook/:bookId", catchErrors(upadateBookProcess))
