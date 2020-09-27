@@ -73,4 +73,7 @@ app.use("/api", note)
 const quote = require("./routes/quotes.routes")
 app.use("/api", quote)
 
+const shelf = require("./routes/shelf.routes")
+app.use("/api", shelf)
+
 module.exports = app;

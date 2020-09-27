@@ -12,7 +12,7 @@ const noteSchema = new Schema(
         },
         tags: [String],
         chapter: String,
-        pages: [Number],
+        pages: String,
         description: String
     },
     {

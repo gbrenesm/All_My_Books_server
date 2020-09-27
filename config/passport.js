@@ -82,15 +82,26 @@ passport.serializeUser((user, done) => {
   done(null, user._id)
 })
 
-passport.deserializeUser( async (id, done) => {
-  try{
-    const user = await User.findById(id)
-    delete user.password
-    done (null, user)
-  }
-  catch(error){
-    done (error)
-  }
+// passport.deserializeUser( async (id, done) => {
+//   try{
+//     const user = await User.findById(id)
+//     delete user.password
+//     done (null, user)
+//   }
+//   catch(error){
+//     done (error)
+//   }
+// })
+
+passport.deserializeUser( async (id, cd) => {
+  User.findById(id)
+  .then(userDocument =>{
+    if (userDocument.password) userDocument.password = undefined
+    cd(null, userDocument)
+  })
+  .catch(err =>{
+    cb(err)
+  })
 })
 
 module.exports = passport

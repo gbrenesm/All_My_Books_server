@@ -12,7 +12,7 @@ exports.signupProcess = async (req, res) => {
         return res.status(401).json({message: "Por favor, llena todos los campos"})
     const existingUser = await User.findOne({ email })
     if (existingUser)
-        return res.status(401).json({message: "El email ya está registrado"})
+        return res.status(401).json({message: "El email ya está registrado, por favor intenta con otro"})
     const hashPswd = hashSync(password, genSaltSync(12))
     await User.create({
     username,

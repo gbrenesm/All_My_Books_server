@@ -12,7 +12,7 @@ const { newBookProcess,
 router.post("/newbook", catchErrors(newBookProcess))
 
 ////R
-router.get("/userbooks", catchErrors(seeUserBooks))
+router.get("/userbooks/:page", catchErrors(seeUserBooks))
 router.get("/detailbook/:bookId", catchErrors(seeDetailBook))
 
 ////U

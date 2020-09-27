@@ -16,3 +16,5 @@ const shelfSchema = new Schema(
     timestamps: true
   }
   )
+
+module.exports = model ("Shelf", shelfSchema)

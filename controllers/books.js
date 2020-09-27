@@ -1,12 +1,14 @@
+const { model } = require("mongoose")
 const Book = require("../models/Book")
 const User = require("../models/User")
 
 ////C
 exports.newBookProcess = async (req, res) => {
-  const { title, author, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
+  const { title, authorFirstName, authorLastName, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
   const book = await Book.create({
     title,
-    author,
+    authorFirstName,
+    authorLastName,
     publisher,
     published,
     edition,
@@ -26,11 +28,19 @@ exports.newBookProcess = async (req, res) => {
 
 exports.seeDetailBook = async (req, res) => {
   const book = await Book.findById(req.params.bookId)
+    .populate("notes")
+    .populate("quotes")
   res.status(200).json({ book })
 }
 
 exports.seeUserBooks = async (req, res) => {
-  const user = await User.findById(req.user.id).populate("books")
+  const { page } = await req.params
+  let skipnumber = 0
+  if (page > 1) skipnumber = 12 * (page -1)
+  const user = await User.findById(req.user.id).populate({
+    path: "books",
+    options: { limit: 12, skip: skipnumber}
+  })
   res.status(200).json({ user })
 }
 
@@ -60,5 +70,4 @@ exports.deleteBookProcess = async (req, res) => {
   await Book.findByIdAndDelete(req.params.bookId)
   res.status(200).json({ message: "Libro eliminado"})
   await User.findByIdAndUpdate(req.user.id, {$pull: {books: req.params.bookId}})
-
 }

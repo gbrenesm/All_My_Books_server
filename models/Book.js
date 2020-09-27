@@ -6,24 +6,28 @@ const bookSchema = new Schema(
             type: String,
             required: true
         },
-        author: [String],
+        authorFirstName: String,
+        authorLastName: String,
         publisher: [String],
         published: Date,
         edition: String,
         ISBN: String,
         publishPlace: String,
         pages: Number,
+        cover: String,
         format: {
             type: String,
             enum: ["TAPA DURA", "TAPA BLANDA", "EBOOK"]
         },
         description: String,
-        bookshelfs: [String],
+        bookshelfs: [{
+            type: Schema.Types.ObjectId,
+            ref: "Shelf"
+        }],
         quotes: [{
             type: Schema.Types.ObjectId,
             ref: "Quote"
         }],
-        cover: String,
         tags: [String],
         notes: [{
             type: Schema.Types.ObjectId,

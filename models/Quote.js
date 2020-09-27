@@ -11,7 +11,7 @@ const quoteSchema = new Schema (
             ref: "Book"
         },
         description: String,
-        pages: [Number],
+        pages: String,
         note: String,
         tags: [String]
     },
