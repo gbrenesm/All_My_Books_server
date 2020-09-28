@@ -20,7 +20,7 @@ const bookSchema = new Schema(
             enum: ["TAPA DURA", "TAPA BLANDA", "EBOOK"]
         },
         description: String,
-        bookshelfs: [{
+        bookshelves: [{
             type: Schema.Types.ObjectId,
             ref: "Shelf"
         }],

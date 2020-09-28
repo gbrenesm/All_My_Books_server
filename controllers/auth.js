@@ -49,7 +49,7 @@ exports.loginProcess = (req, res, next) => {
 
 ///////////////// Current user /////////////////
 exports.currentUser = async (req, res) => {
-    const user = await User.findById(req.user.id).populate("shelfs")
+    const user = await User.findById(req.user.id).populate("shelves")
     res.status(200).json({ user })
 }
 

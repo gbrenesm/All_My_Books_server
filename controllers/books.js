@@ -30,6 +30,7 @@ exports.seeDetailBook = async (req, res) => {
   const book = await Book.findById(req.params.bookId)
     .populate("notes")
     .populate("quotes")
+    .populate("bookshelves")
   res.status(200).json({ book })
 }
 
@@ -41,7 +42,7 @@ exports.seeUserBooks = async (req, res) => {
     path: "books",
     options: { limit: 12, skip: skipnumber}
   })
-  .populate("shelfs")
+  .populate("shelves")
   res.status(200).json({ user })
 }
 
