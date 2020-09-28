@@ -48,8 +48,22 @@ exports.loginProcess = (req, res, next) => {
 }
 
 ///////////////// Current user /////////////////
-exports.currentUser = (req, res) => {
-    res.status(200).json({ user: req.user})
+exports.currentUser = async (req, res) => {
+    const user = await User.findById(req.user.id)
+    res.status(200).json({ user })
+}
+
+///////////////// Update user /////////////////
+exports.updateUserProcess = async (req, res) => {
+    const { username, password, email, profilePhoto, } = req.body
+    const hashPswd = hashSync(password, genSaltSync(12))
+    const user = await User.findByIdAndUpdate(req.user.id, {
+        username,
+        email,
+        password: hashPswd,
+        profilePhoto
+    }, { new: true})
+    res.status(202).json({ user })
 }
 
 ///////////////// Logout /////////////////

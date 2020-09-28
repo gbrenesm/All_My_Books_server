@@ -41,6 +41,7 @@ exports.seeUserBooks = async (req, res) => {
     path: "books",
     options: { limit: 12, skip: skipnumber}
   })
+  .populate("shelfs")
   res.status(200).json({ user })
 }
 

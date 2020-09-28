@@ -15,11 +15,6 @@ exports.newShelfProcess = async (req, res) => {
 }
 
 ////R
-exports.seeUserShelfs = async (req, res) => {
-  const userShelfs = await User.findById(req.user.id).populate("bookshelfs")
-  res.status(200).json({ userShelfs })
-}
-
 exports.seeBooksShelf = async (req, res) => {
   const books = await Shelf.findById(req.params.shelfId).populate("books")
   res.status(200).json({ books })
