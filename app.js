@@ -49,17 +49,12 @@ app.use(require('node-sass-middleware')({
 }));
       
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.use(express.static(path.join(__dirname, "public/build")))
 
 
 
 const index = require("./routes/index.routes");
-app.use('/', index);
+app.use('/api', index);
 
 const auth = require("./routes/auth.routes")
 app.use("/auth", auth)
@@ -75,5 +70,9 @@ app.use("/api", quote)
 
 const shelf = require("./routes/shelf.routes")
 app.use("/api", shelf)
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/build", "index.html"))
+})
 
 module.exports = app;
