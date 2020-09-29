@@ -35,9 +35,9 @@ passport.use(
       {
           clientID: process.env.GOOGLE_ID,
           clientSecret: process.env.GOOGLE_SECRET,
-          callbackURL: "/google/callback"
+          callbackURL: process.env.GOOGLE_CALLBACK,
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async (_, __, profile, done) => {
           const user = await User.findOne({ googleID: profile.id })
       if (!user) {
           const user = await User.create({
@@ -46,7 +46,7 @@ passport.use(
           googleId: profile.id,
           profilePhoto: profile.photos[0].value
       })
-          done(null, user)
+        done(null, user)
       }
       done(null, user)
   })
@@ -82,26 +82,26 @@ passport.serializeUser((user, done) => {
   done(null, user._id)
 })
 
-// passport.deserializeUser( async (id, done) => {
-//   try{
-//     const user = await User.findById(id)
-//     delete user.password
-//     done (null, user)
-//   }
-//   catch(error){
-//     done (error)
-//   }
-// })
-
-passport.deserializeUser( async (id, cd) => {
-  User.findById(id)
-  .then(userDocument =>{
-    if (userDocument.password) userDocument.password = undefined
-    cd(null, userDocument)
-  })
-  .catch(err =>{
-    cb(err)
-  })
+passport.deserializeUser( async (id, done) => {
+  try{
+    const user = await User.findById(id)
+    delete user.password
+    done (null, user)
+  }
+  catch(error){
+    done (error)
+  }
 })
+
+// passport.deserializeUser( async (id, cd) => {
+//   User.findById(id)
+//   .then(userDocument =>{
+//     if (userDocument.password) userDocument.password = undefined
+//     cd (null, userDocument)
+//   })
+//   .catch(err =>{
+//     cb(err)
+//   })
+// })
 
 module.exports = passport

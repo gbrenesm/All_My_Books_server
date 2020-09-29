@@ -4,11 +4,13 @@ const User = require("../models/User")
 
 ////C
 exports.newBookProcess = async (req, res) => {
-  const { title, authorFirstName, authorLastName, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
+  const { title, authorFirstName, authorLastName, coAuthorFirstName, coAuthorLastName, publisher, published, edition, ISBN, publishPlace, pages, format, description, cover } = req.body
   const book = await Book.create({
     title,
     authorFirstName,
     authorLastName,
+    coAuthorFirstName,
+    coAuthorLastName,
     publisher,
     published,
     edition,
@@ -35,16 +37,26 @@ exports.seeDetailBook = async (req, res) => {
 }
 
 exports.seeUserBooks = async (req, res) => {
-  const { page } = await req.params
-  let skipnumber = 0
-  if (page > 1) skipnumber = 12 * (page -1)
   const user = await User.findById(req.user.id).populate({
     path: "books",
-    options: { limit: 12, skip: skipnumber}
+    options: {sort: { title: 1 } }
   })
   .populate({
     path:"shelves",
-    options: {sort: {name: 1}}
+    options: {sort: { name: 1 } }
+  })
+  res.status(200).json({ user })
+}
+
+
+exports.seeUserBooksByAuthor = async (req, res) => {
+  const user = await User.findById(req.user.id).populate({
+    path: "books",
+    options: {sort: { authorLastName: 1 } }
+  })
+  .populate({
+    path:"shelves",
+    options: {sort: { name: 1 } }
   })
   res.status(200).json({ user })
 }

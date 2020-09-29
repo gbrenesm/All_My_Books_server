@@ -8,6 +8,8 @@ const bookSchema = new Schema(
         },
         authorFirstName: String,
         authorLastName: String,
+        coAuthorFirstName: String,
+        coAuthorLastName: String,
         publisher: [String],
         published: Date,
         edition: String,

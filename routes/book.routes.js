@@ -6,13 +6,15 @@ const { newBookProcess,
         upadateBookProcess, 
         deleteBookProcess,
         seeUserBooks,
-        seeDetailBook} = require("../controllers/books")
+        seeDetailBook,
+        seeUserBooksByAuthor} = require("../controllers/books")
 
 ////C
 router.post("/newbook", catchErrors(newBookProcess))
 
 ////R
-router.get("/userbooks/:page", catchErrors(seeUserBooks))
+router.get("/userbooks", catchErrors(seeUserBooks))
+router.get("/userbooksauthor", catchErrors(seeUserBooksByAuthor))
 router.get("/detailbook/:bookId", catchErrors(seeDetailBook))
 
 ////U
