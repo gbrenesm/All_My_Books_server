@@ -47,6 +47,22 @@ exports.loginProcess = (req, res, next) => {
     })(req, res, next)
 }
 
+///////////////// Google /////////////////
+
+exports.googleProcess = passport.authenticate("google", { scope: ["profile", "email"] })
+
+exports.googleRedirect = passport.authenticate("google", { scope: ["email"] }, (err, user, info) => {
+    if (err) return res.status(500).json({ err, info })
+    if (!user) return res.status(401).json({ err, info })
+    req.login(user, error => {
+        if (error) return res.status(401).json({ error })
+        return res.redirect(process.env.FRONTENDPOINT + "/userhome")
+    })
+    (req, res, next)
+})
+
+
+
 ///////////////// Current user /////////////////
 exports.currentUser = async (req, res) => {
     const user = await User.findById(req.user.id).populate("shelves")

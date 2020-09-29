@@ -42,7 +42,10 @@ exports.seeUserBooks = async (req, res) => {
     path: "books",
     options: { limit: 12, skip: skipnumber}
   })
-  .populate("shelves")
+  .populate({
+    path:"shelves",
+    options: {sort: {name: 1}}
+  })
   res.status(200).json({ user })
 }
 

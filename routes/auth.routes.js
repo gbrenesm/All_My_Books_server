@@ -5,10 +5,14 @@ const { signupProcess,
         loginProcess, 
         logout,
         currentUser,
-        updateUserProcess} = require("../controllers/auth")
+        updateUserProcess,
+        googleProcess,
+        googleRedirect} = require("../controllers/auth")
 
 router.post("/signup", signupProcess)
 router.post("/login", loginProcess)
+router.get("/google", googleProcess)
+router.get("/google/callback", googleRedirect)
 
 router.get("/currentuser", currentUser)
 

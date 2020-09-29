@@ -30,27 +30,27 @@ passport.use(
 )
 
 ///////////////// Google /////////////////
-// passport.use(
-//   new GoogleStrategy(
-//       {
-//           clientID: process.env.GOOGLE_ID,
-//           clientSecret: process.env.GOOGLE_SECRET,
-//           callbackURL: "/google/callback"
-//       },
-//       async (accessToken, refreshToken, profile, done) => {
-//           const user = await User.findOne({ googleID: profile.id })
-//       if (!user) {
-//           const user = await User.create({
-//           username: profile.displayName,
-//           email: profile.emails[0].value,
-//           googleId: profile.id,
-//           profilePhoto: profile.photos[0].value
-//       })
-//           done(null, user)
-//       }
-//       done(null, user)
-//   })
-// )
+passport.use(
+  new GoogleStrategy(
+      {
+          clientID: process.env.GOOGLE_ID,
+          clientSecret: process.env.GOOGLE_SECRET,
+          callbackURL: "/google/callback"
+      },
+      async (accessToken, refreshToken, profile, done) => {
+          const user = await User.findOne({ googleID: profile.id })
+      if (!user) {
+          const user = await User.create({
+          username: profile.displayName,
+          email: profile.emails[0].value,
+          googleId: profile.id,
+          profilePhoto: profile.photos[0].value
+      })
+          done(null, user)
+      }
+      done(null, user)
+  })
+)
 
 ///////////////// Facebook /////////////////
 // passport.use(
