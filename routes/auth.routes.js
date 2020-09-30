@@ -8,12 +8,16 @@ const { signupProcess,
         currentUser,
         updateUserProcess,
         googleProcess,
-        googleRedirect} = require("../controllers/auth")
+        googleRedirect,
+        facebookProcess,
+        facebookRedirect} = require("../controllers/auth")
 
 router.post("/signup", signupProcess)
 router.post("/login", loginProcess)
 router.get("/google", googleProcess)
 router.get("/google/callback", googleRedirect)
+router.get("/facebook", facebookProcess)
+router.get("/facebook/callback", facebookRedirect)
 
 router.get("/currentuser", currentUser)
 

@@ -53,28 +53,29 @@ passport.use(
 )
 
 ///////////////// Facebook /////////////////
-// passport.use(
-//   new FacebookStrategy({
-//     clientID: process.env.FACEBOOK_ID,
-//     clientSecret: process.env.FACEBOOK_SECRET,
-//     callbackURL: process.env.FACEBOOK_CALLBACK,
-//     profileFields: ["id", "displayName", "photos", "email"]
-//   },
-//   async (accessToken, refreshToken, profile, done) => {
-//     const user = await User.findOne({facebookId: profile.id })
-//     if (!user){
-//       const user = await User.create({
-//         username: profile.displayName,
-//         email: profile.emails[0].value,
-//         facebookId: profile.id,
-//         profilePhoto: profile.photos[0].value
-//       })
-//     done(null, user)
-//     }
-//     done(null, user)
-//   }
-//   )
-// )
+passport.use(
+  new FacebookStrategy({
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK,
+    profileFields: ["id", "displayName", "photos", "email"]
+  },
+  async (_, __, profile, done) => {
+    const user = await User.findOne({facebookId: profile.id })
+    console.log(user)
+    if (!user){
+      const user = await User.create({
+        username: profile.displayName,
+        email: profile.emails[0].value,
+        facebookId: profile.id,
+        profilePhoto: profile.photos[0].value
+      })
+    done(null, user)
+    }
+    done(null, user)
+  }
+  )
+)
 
 
 ///////////////// Serealizer and deserealizer /////////////////
