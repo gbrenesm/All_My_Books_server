@@ -22,7 +22,6 @@ router.get("/google/callback", (req, res, next) => {
         passport.authenticate("google", { scope: ["email"] }, (err, user, info) => {
           if (err) return res.status(500).json({ err, info })
           if (!user) return res.status(401).json({ err, info })
-      
           req.login(user, error => {
             if (error) return res.status(401).json({ error })
             return res.redirect(process.env.FRONTENDPOINT + "/userhome")
