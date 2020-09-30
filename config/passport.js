@@ -38,7 +38,7 @@ passport.use(
           callbackURL: process.env.GOOGLE_CALLBACK,
       },
       async (_, __, profile, done) => {
-          const user = await User.findOne({ googleID: profile.id })
+          const user = await User.findOne({ googleId: profile.id })
       if (!user) {
           const user = await User.create({
           username: profile.displayName,
@@ -92,16 +92,5 @@ passport.deserializeUser( async (id, done) => {
     done (error)
   }
 })
-
-// passport.deserializeUser( async (id, cd) => {
-//   User.findById(id)
-//   .then(userDocument =>{
-//     if (userDocument.password) userDocument.password = undefined
-//     cd (null, userDocument)
-//   })
-//   .catch(err =>{
-//     cb(err)
-//   })
-// })
 
 module.exports = passport
