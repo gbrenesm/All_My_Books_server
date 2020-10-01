@@ -28,7 +28,7 @@ exports.loginProcess = (req, res, next) => {
     passport.authenticate("local", (err, user, failureDetails) => {
         if (err){
             console.log(failureDetails)
-            res.status(500).json({message: "Algo salió mal"})
+            res.status(500).json({message: "Email o contraseña incorrectos"})
             return
         }
 
