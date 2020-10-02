@@ -4,9 +4,9 @@ This is the backend part of All My Books app.
 
 If you want to work with this repo you need the following variables:
 
-* PORT=3000
+* PORT
 * ENV=development
-* DB= MongoDB
+* DB
 * SECRET
 * GOOGLE_ID
 * GOOGLE_SECRET
